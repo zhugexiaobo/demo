@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		524B61D916781F5A00244756 /* IMG_0383.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 524B61D816781F5A00244756 /* IMG_0383.JPG */; };
 		52961A371677297D0032858D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52961A361677297D0032858D /* UIKit.framework */; };
 		52961A391677297D0032858D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52961A381677297D0032858D /* Foundation.framework */; };
 		52961A3B1677297D0032858D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52961A3A1677297D0032858D /* CoreGraphics.framework */; };
@@ -16,9 +17,12 @@
 		52961A491677297D0032858D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 52961A481677297D0032858D /* Default.png */; };
 		52961A4B1677297E0032858D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52961A4A1677297E0032858D /* Default@2x.png */; };
 		52961A4D1677297E0032858D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52961A4C1677297E0032858D /* Default-568h@2x.png */; };
+		52961A5516772A020032858D /* TimeLineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52961A5416772A020032858D /* TimeLineTableViewController.m */; };
+		52961A5C16772D0E0032858D /* TimeLineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52961A5B16772D0E0032858D /* TimeLineTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		524B61D816781F5A00244756 /* IMG_0383.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_0383.JPG; sourceTree = "<group>"; };
 		52961A321677297D0032858D /* tableView-timeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tableView-timeLine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52961A361677297D0032858D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52961A381677297D0032858D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,6 +36,10 @@
 		52961A481677297D0032858D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		52961A4A1677297E0032858D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		52961A4C1677297E0032858D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		52961A5316772A010032858D /* TimeLineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineTableViewController.h; sourceTree = "<group>"; };
+		52961A5416772A020032858D /* TimeLineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineTableViewController.m; sourceTree = "<group>"; };
+		52961A5A16772D0E0032858D /* TimeLineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineTableViewCell.h; sourceTree = "<group>"; };
+		52961A5B16772D0E0032858D /* TimeLineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,10 @@
 			children = (
 				52961A451677297D0032858D /* AppDelegate.h */,
 				52961A461677297D0032858D /* AppDelegate.m */,
+				52961A5316772A010032858D /* TimeLineTableViewController.h */,
+				52961A5416772A020032858D /* TimeLineTableViewController.m */,
+				52961A5A16772D0E0032858D /* TimeLineTableViewCell.h */,
+				52961A5B16772D0E0032858D /* TimeLineTableViewCell.m */,
 				52961A3D1677297D0032858D /* Supporting Files */,
 			);
 			path = "tableView-timeLine";
@@ -88,6 +100,7 @@
 		52961A3D1677297D0032858D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				524B61D816781F5A00244756 /* IMG_0383.JPG */,
 				52961A3E1677297D0032858D /* tableView-timeLine-Info.plist */,
 				52961A3F1677297D0032858D /* InfoPlist.strings */,
 				52961A421677297D0032858D /* main.m */,
@@ -154,6 +167,7 @@
 				52961A491677297D0032858D /* Default.png in Resources */,
 				52961A4B1677297E0032858D /* Default@2x.png in Resources */,
 				52961A4D1677297E0032858D /* Default-568h@2x.png in Resources */,
+				524B61D916781F5A00244756 /* IMG_0383.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +180,8 @@
 			files = (
 				52961A431677297D0032858D /* main.m in Sources */,
 				52961A471677297D0032858D /* AppDelegate.m in Sources */,
+				52961A5516772A020032858D /* TimeLineTableViewController.m in Sources */,
+				52961A5C16772D0E0032858D /* TimeLineTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +290,7 @@
 				52961A521677297E0032858D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
