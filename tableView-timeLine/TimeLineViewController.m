@@ -19,6 +19,8 @@
 @synthesize qTableView;
 @synthesize presentViewBtn;
 @synthesize arrowImgView;
+@synthesize dropdownView;
+@synthesize timeLineViewDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,7 +60,7 @@
     [headBarItemArray addObject:headItem];
     UIBarButtonItem *spaceItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [headBarItemArray addObject:spaceItem1];
-    //弹出式下拉菜单
+    //弹出式下拉菜单按钮
     self.presentViewBtn = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 0.f, 140.f, 40.f)];
     [presentViewBtn setBackgroundImage:[UIImage imageNamed:@"button_unselected.png"] forState:UIControlStateNormal];
     [presentViewBtn setTitle:@"我的趣点集" forState:UIControlStateNormal];
@@ -66,9 +68,9 @@
     presentViewBtn.titleLabel.textColor = [UIColor whiteColor];
     presentViewBtn.titleLabel.font = [UIFont systemFontOfSize:20.f];
     presentViewBtn.titleLabel.textAlignment = UITextAlignmentLeft;
-    isPresentViewBtnPressed = NO;
-    [self presentViewBtnPressed];
-    [presentViewBtn addTarget:self action:@selector(presentViewBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self arrowChange:NO];
+    isPresentViewBtnPressed = YES;
+    [presentViewBtn addTarget:self action:@selector(showDropdowmView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *presentViewItem = [[UIBarButtonItem alloc]initWithCustomView:presentViewBtn];
     [headBarItemArray addObject:presentViewItem];
     UIBarButtonItem *spaceItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
@@ -77,33 +79,82 @@
     [headBar setItems:headBarItemArray animated:YES];
     [self.view addSubview:headBar];
     
-    testArray = [[NSArray alloc]initWithObjects:@"微信营销",@"脸皮厚+更自豪",@"真正的贺岁片",@"药企洗牌在即",@"朝鲜火箭发射成功",@"深圳光启研究院",@"APP备案制度",@"移动阅读",@"南京大屠杀75周年",@"U22国足遭绝杀", nil];
-    
+    myArray = [[NSArray alloc]initWithObjects:@"微信营销",@"脸皮厚+更自豪",@"真正的贺岁片",@"药企洗牌在即",@"朝鲜火箭发射成功",@"深圳光启研究院",@"APP备案制度",@"移动阅读",@"南京大屠杀75周年",@"U22国足遭绝杀", nil];
+    otherArray = [[NSArray alloc]initWithObjects:@"社会化阅读",@"黑客与画家",@"亚马逊",@"iPhone5在华毛利率",@"金山游戏转型",@"C罗2012语录",@"发现疑似『上帝粒子』", nil];
+    qPointArray = myArray;
 }
-
-- (void)headImageBtnClicked
-{
-    NSLog(@"test");
-}
-
-- (void)presentViewBtnPressed
-{
-    //翻转小箭头
-    [self.arrowImgView removeFromSuperview];
-    UIImage *arrowImg = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:(isPresentViewBtnPressed)?@"arrow_up":@"arrow_down" ofType:@"png"]];
-    self.arrowImgView = [[UIImageView alloc]initWithImage:arrowImg];
-    [arrowImgView setFrame:CGRectMake(120.f, 16.f, 8.f, 8.f)];
-    [self.presentViewBtn addSubview:arrowImgView];
-    isPresentViewBtnPressed = (isPresentViewBtnPressed)?NO:YES;
-    
-}
-
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Button click method
+
+//
+- (void)headImageBtnClicked
+{
+    NSLog(@"test");
+}
+
+//下拉菜单弹出
+- (void)showDropdowmView
+{
+    if (isPresentViewBtnPressed) {
+        [self arrowChange:YES];
+        self.dropdownView = [[DropdownView alloc]initWithFrame:CGRectMake(96.f, 44.f, 124.f, 80.f)];
+        self.dropdownView.dropdownDelegate = self;
+        dropdownView.backgroundColor = [UIColor whiteColor];
+        //阴影
+        dropdownView.layer.shadowColor = [UIColor blackColor].CGColor;
+        dropdownView.layer.shadowOpacity = 0.6f;
+        dropdownView.layer.shadowRadius = 5.f;
+        dropdownView.layer.shadowOffset = CGSizeMake(0.f, 2.f);
+        UIButton *myQpoint = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 0.f, 124.f, 40.f)];
+        [myQpoint setBackgroundImage:[UIImage imageNamed:@"button_angle.png"] forState:UIControlStateNormal];
+        [myQpoint addTarget:self action:@selector(dropdownViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [myQpoint setTitle:@"我的趣点集" forState:UIControlStateNormal];
+        //[myQpoint setTitleEdgeInsets:UIEdgeInsetsMake(10.f, 8.f, 10.f, 16.f)];
+        myQpoint.titleLabel.font = [UIFont systemFontOfSize:18.f];
+        myQpoint.titleLabel.textColor = [UIColor whiteColor];
+        myQpoint.tag = 0;
+        [dropdownView addSubview:myQpoint];
+        UIButton *otherQpoint = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 41.f, 124.f, 40.f)];
+        [otherQpoint setBackgroundImage:[UIImage imageNamed:@"button_angle.png"] forState:UIControlStateNormal];
+        [otherQpoint addTarget:self action:@selector(dropdownViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [otherQpoint setTitle:@"其他趣点集" forState:UIControlStateNormal];
+        otherQpoint.titleLabel.font = [UIFont systemFontOfSize:18.f];
+        otherQpoint.titleLabel.textColor = [UIColor whiteColor];
+        otherQpoint.tag = 1;
+        [dropdownView addSubview:otherQpoint];
+        [self.view addSubview:self.dropdownView];
+    }
+    else if (!isPresentViewBtnPressed) {
+        [self.dropdownView removeFromSuperview];
+        [self arrowChange:NO];
+    }
+}
+
+//下拉菜单上按钮方法
+- (void)dropdownViewBtnClicked:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    [self.dropdownView removeFromSuperview];
+    [self arrowChange:NO];
+    qPointArray = btn.tag?otherArray:myArray;
+    [self.qTableView reloadData];
+}
+
+//下拉按钮上小箭头变化
+- (void)arrowChange:(BOOL)downOrUp
+{
+    [self.arrowImgView removeFromSuperview];
+    UIImage *arrowImg = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:(downOrUp)?@"arrow_up":@"arrow_down" ofType:@"png"]];
+    self.arrowImgView = [[UIImageView alloc]initWithImage:arrowImg];
+    [arrowImgView setFrame:CGRectMake(120.f, 16.f, 8.f, 8.f)];
+    [self.presentViewBtn addSubview:arrowImgView];
+    isPresentViewBtnPressed = isPresentViewBtnPressed?NO:YES;
 }
 
 //生成cell
@@ -112,11 +163,11 @@
     UIView *returnView = [[UIView alloc]initWithFrame:CGRectZero];
     //趣点文本
     UIFont *font = [UIFont systemFontOfSize:15.f];
-    CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(150.f, 1000.f)];
+    CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(150.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
     UILabel *qPointText = [[UILabel alloc]initWithFrame:CGRectMake(16.f, 3.f, size.width+9.f, size.height+6.f)];
     qPointText.backgroundColor = [UIColor clearColor];
     qPointText.font = font;
-    qPointText.text = [testArray objectAtIndex:fromIndex];
+    qPointText.text = [qPointArray objectAtIndex:fromIndex];
     qPointText.textColor = [UIColor whiteColor];
     //时间文本
     UILabel *timeText = [[UILabel alloc]init];
@@ -156,7 +207,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [testArray count];
+    return [qPointArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -171,7 +222,7 @@
     if (!cell) {
         cell = [[TimeLineTableViewCell alloc]init];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        UIView *qPointView = [self qPointView:[NSString stringWithFormat:@"%@",[testArray objectAtIndex:indexPath.row]] from:indexPath.row];
+        UIView *qPointView = [self qPointView:[NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]] from:indexPath.row];
         [cell.contentView addSubview:qPointView];
     }
     //时间轴线
@@ -181,6 +232,21 @@
     [cell.contentView addSubview:lineImageView];
     
     return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIAlertView *testAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]] delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+    [testAlert show];
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
 }
 
 @end
