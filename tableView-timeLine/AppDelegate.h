@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) TimeLineViewController *timeLineViewController;
+@property (strong, nonatomic) UINavigationController  *navigationController;
 
 @end

@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "DropdownView.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface TimeLineViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface TimeLineViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, EGORefreshTableHeaderDelegate>
 {
     NSArray *qPointArray;
-    NSArray *myArray;
-    NSArray *otherArray;
+    NSMutableArray *myArray;
+    NSMutableArray *otherArray;
     BOOL isPresentViewBtnPressed;
     id timeLineViewDelegate;
+    EGORefreshTableHeaderView *refreshHeaderView;
 }
 
 @property (strong, nonatomic)UITableView *qTableView;
@@ -23,6 +25,6 @@
 @property (strong, nonatomic)UIImageView *arrowImgView;
 @property (strong, nonatomic)DropdownView *dropdownView;
 
-@property (nonatomic)id timeLineViewDelegate;
+@property (nonatomic, assign)id timeLineViewDelegate;
 
 @end

@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TimeLineViewController.h"
 #import "TimeLineTableViewCell.h"
+#import "QuoteViewController.h"
 
 @interface TimeLineViewController ()
 
@@ -32,9 +33,19 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBarHidden = YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //导航栏
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    UIImage *backBtnImg = [[UIImage imageNamed:@"backBtn.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15.f, 18.f, 15.f, 15.f)];
+    [backBtn setBackButtonBackgroundImage:backBtnImg forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    self.navigationItem.backBarButtonItem = backBtn;
     //趣点列表
 	self.qTableView.dataSource = self;
     self.qTableView.delegate = self;
@@ -75,12 +86,22 @@
     [headBarItemArray addObject:presentViewItem];
     UIBarButtonItem *spaceItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [headBarItemArray addObject:spaceItem2];
-    
     [headBar setItems:headBarItemArray animated:YES];
     [self.view addSubview:headBar];
     
-    myArray = [[NSArray alloc]initWithObjects:@"微信营销",@"脸皮厚+更自豪",@"真正的贺岁片",@"药企洗牌在即",@"朝鲜火箭发射成功",@"深圳光启研究院",@"APP备案制度",@"移动阅读",@"南京大屠杀75周年",@"U22国足遭绝杀", nil];
-    otherArray = [[NSArray alloc]initWithObjects:@"社会化阅读",@"黑客与画家",@"亚马逊",@"iPhone5在华毛利率",@"金山游戏转型",@"C罗2012语录",@"发现疑似『上帝粒子』", nil];
+    //下拉刷新
+    if (refreshHeaderView == nil) {
+		
+		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.qTableView.bounds.size.height, self.view.frame.size.width, self.qTableView.bounds.size.height)];
+		view.delegate = self;
+		[self.qTableView addSubview:view];
+		refreshHeaderView = view;
+		[view release];
+	}
+	[refreshHeaderView refreshLastUpdatedDate];
+    
+    myArray = [[NSMutableArray alloc]initWithObjects:@"微信营销",@"脸皮厚+更自豪",@"真正的贺岁片",@"药企洗牌在即",@"朝鲜火箭发射成功",@"深圳光启研究院",@"APP备案制度",@"移动阅读",@"南京大屠杀75周年",@"U22国足遭绝杀", nil];
+    otherArray = [[NSMutableArray alloc]initWithObjects:@"社会化阅读",@"黑客与画家",@"亚马逊",@"iPhone5在华毛利率",@"金山游戏转型",@"C罗2012语录",@"发现疑似『上帝粒子』", nil];
     qPointArray = myArray;
 }
 
@@ -142,7 +163,8 @@
     UIButton *btn = (UIButton *)sender;
     [self.dropdownView removeFromSuperview];
     [self arrowChange:NO];
-    qPointArray = btn.tag?otherArray:myArray;
+    qPointArray = btn.tag?otherArray:myArray;   //显示内容
+    [self.presentViewBtn setTitle:btn.titleLabel.text forState:UIControlStateNormal];   //按钮文字
     [self.qTableView reloadData];
 }
 
@@ -198,6 +220,51 @@
     return returnView;
 }
 
+#pragma mark - Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource
+{
+    [self.qTableView reloadData];
+}
+
+- (void)doneLoadingTableViewData
+{
+	[refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.qTableView];
+}
+
+
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	[refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+	[refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];	
+}
+
+
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{	
+	[self reloadTableViewDataSource];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+{
+	return NO; // should return if data source model is reloading
+}
+
+//- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
+//{
+//	return [NSDate date]; // should return date data source was last changed	
+//}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -238,15 +305,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIAlertView *testAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]] delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
-    [testAlert show];
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
+//    UIAlertView *testAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]] delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+//    [testAlert show];
+    QuoteViewController *detailViewController = [[QuoteViewController alloc]init];
+    detailViewController.title = [NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]];
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.navigationController pushViewController:detailViewController animated:YES];
+     
 }
 
 @end

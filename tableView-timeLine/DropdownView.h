@@ -19,6 +19,6 @@
     id dropdownDelegate;
 }
 
-@property (nonatomic)id dropdownDelegate;
+@property (nonatomic, assign)id dropdownDelegate;
 
 @end
