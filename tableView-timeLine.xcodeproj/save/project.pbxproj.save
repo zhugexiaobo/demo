@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		523FDA64167EAA25004E0575 /* TimeLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 523FDA63167EAA25004E0575 /* TimeLineViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5240B760167F1BB8001BB192 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5240B75F167F1BB8001BB192 /* QuartzCore.framework */; };
+		5245FFED1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5245FFEC1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		524D55651689A2B200392623 /* QuoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 524D55641689A2B200392623 /* QuoteViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		524D556D1689BB5700392623 /* backBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 524D556B1689BB5700392623 /* backBtn.png */; };
 		524D556E1689BB5700392623 /* backBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 524D556C1689BB5700392623 /* backBtn@2x.png */; };
@@ -51,6 +52,8 @@
 		523FDA62167EAA25004E0575 /* TimeLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineViewController.h; sourceTree = "<group>"; };
 		523FDA63167EAA25004E0575 /* TimeLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineViewController.m; sourceTree = "<group>"; };
 		5240B75F167F1BB8001BB192 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5245FFEB1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+UINavigationBarCategory.h"; sourceTree = "<group>"; };
+		5245FFEC1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+UINavigationBarCategory.m"; sourceTree = "<group>"; };
 		524D55631689A2B200392623 /* QuoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteViewController.h; sourceTree = "<group>"; };
 		524D55641689A2B200392623 /* QuoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteViewController.m; sourceTree = "<group>"; };
 		524D556B1689BB5700392623 /* backBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backBtn.png; path = image/backBtn.png; sourceTree = "<group>"; };
@@ -173,12 +176,14 @@
 			children = (
 				52961A451677297D0032858D /* AppDelegate.h */,
 				52961A461677297D0032858D /* AppDelegate.m */,
+				5245FFEB1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.h */,
+				5245FFEC1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.m */,
 				523FDA62167EAA25004E0575 /* TimeLineViewController.h */,
 				523FDA63167EAA25004E0575 /* TimeLineViewController.m */,
-				52961A5A16772D0E0032858D /* TimeLineTableViewCell.h */,
-				52961A5B16772D0E0032858D /* TimeLineTableViewCell.m */,
 				529EB0981689392C00C4C662 /* DropdownView.h */,
 				529EB0991689392C00C4C662 /* DropdownView.m */,
+				52961A5A16772D0E0032858D /* TimeLineTableViewCell.h */,
+				52961A5B16772D0E0032858D /* TimeLineTableViewCell.m */,
 				524D55631689A2B200392623 /* QuoteViewController.h */,
 				524D55641689A2B200392623 /* QuoteViewController.m */,
 				52B42215168DAF3B00961A90 /* UserInfoBarView.h */,
@@ -305,6 +310,7 @@
 				52961A431677297D0032858D /* main.m in Sources */,
 				52961A471677297D0032858D /* AppDelegate.m in Sources */,
 				52961A5C16772D0E0032858D /* TimeLineTableViewCell.m in Sources */,
+				5245FFED1679D629001EED55 /* UINavigationBar+UINavigationBarCategory.m in Sources */,
 				523FDA64167EAA25004E0575 /* TimeLineViewController.m in Sources */,
 				529EB09A1689392C00C4C662 /* DropdownView.m in Sources */,
 				524D55651689A2B200392623 /* QuoteViewController.m in Sources */,
@@ -383,7 +389,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tableView-timeLine/tableView-timeLine-Prefix.pch";
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "tableView-timeLine/tableView-timeLine-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";

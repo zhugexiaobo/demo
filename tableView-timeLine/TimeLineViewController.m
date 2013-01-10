@@ -27,8 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.qTableView = [[UITableView alloc]initWithFrame:CGRectMake(0.f, 44.f, 320.f, 416.f)];
-        self.qTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     }
     return self;
 }
@@ -41,9 +40,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.layer.backgroundColor = [UIColor scrollViewTexturedBackgroundColor].CGColor;
+    self.qTableView = [[UITableView alloc]initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 416.0f)];
+    //阴影
+    self.qTableView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.qTableView.layer.shadowOpacity = 0.6f;
+    self.qTableView.layer.shadowRadius = 5.0f;
+    self.qTableView.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+    self.qTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //导航栏
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    UIImage *backBtnImg = [[UIImage imageNamed:@"backBtn.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15.f, 18.f, 15.f, 15.f)];
+    UIImage *backBtnImg = [[UIImage imageNamed:@"backBtn.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15.0f, 18.0f, 15.0f, 15.0f)];
     [backBtn setBackButtonBackgroundImage:backBtnImg forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     self.navigationItem.backBarButtonItem = backBtn;
     //趣点列表
@@ -51,15 +58,15 @@
     self.qTableView.delegate = self;
     [self.view addSubview:self.qTableView];
     //头像栏toolBar
-    UIToolbar *headBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0.f, 0.f, 320.f, 44.f)];
+    UIToolbar *headBar = [[UIToolbar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
     [headBar setBackgroundImage:[UIImage imageNamed:@"headBar.png"] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     NSMutableArray *headBarItemArray = [[NSMutableArray alloc]initWithCapacity:4];
     //头像
-    UIButton *headImageBtn = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 0.f, 40.f, 40.f)];
+    UIButton *headImageBtn = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f)];
     //描边
-    headImageBtn.layer.cornerRadius = 6.f;
+    headImageBtn.layer.cornerRadius = 6.0f;
     headImageBtn.layer.masksToBounds = NO;
-    headImageBtn.layer.borderWidth = 1.f;
+    headImageBtn.layer.borderWidth = 1.0f;
     headImageBtn.layer.borderColor = [UIColor whiteColor].CGColor;
 //    headImageBtn.layer.shadowColor = [UIColor blackColor].CGColor;
 //    headImageBtn.layer.shadowOpacity = 0.4f;
@@ -72,12 +79,12 @@
     UIBarButtonItem *spaceItem1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     [headBarItemArray addObject:spaceItem1];
     //弹出式下拉菜单按钮
-    self.presentViewBtn = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 0.f, 140.f, 40.f)];
+    self.presentViewBtn = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 140.0f, 40.0f)];
     [presentViewBtn setBackgroundImage:[UIImage imageNamed:@"button_unselected.png"] forState:UIControlStateNormal];
     [presentViewBtn setTitle:@"我的趣点集" forState:UIControlStateNormal];
-    [presentViewBtn setTitleEdgeInsets:UIEdgeInsetsMake(10.f, 10.f, 8.f, 28.f)];
+    [presentViewBtn setTitleEdgeInsets:UIEdgeInsetsMake(10.0f, 10.0f, 8.0f, 28.0f)];
     presentViewBtn.titleLabel.textColor = [UIColor whiteColor];
-    presentViewBtn.titleLabel.font = [UIFont systemFontOfSize:20.f];
+    presentViewBtn.titleLabel.font = [UIFont systemFontOfSize:20.0f];
     presentViewBtn.titleLabel.textAlignment = UITextAlignmentLeft;
     [self arrowChange:NO];
     isPresentViewBtnPressed = YES;
@@ -116,7 +123,7 @@
 //
 - (void)headImageBtnClicked
 {
-    NSLog(@"test");
+    NSLog(@"user");
 }
 
 //下拉菜单弹出
@@ -124,28 +131,28 @@
 {
     if (isPresentViewBtnPressed) {
         [self arrowChange:YES];
-        self.dropdownView = [[DropdownView alloc]initWithFrame:CGRectMake(96.f, 44.f, 124.f, 80.f)];
+        self.dropdownView = [[DropdownView alloc]initWithFrame:CGRectMake(96.0f, 44.0f, 124.0f, 80.0f)];
         self.dropdownView.dropdownDelegate = self;
         dropdownView.backgroundColor = [UIColor whiteColor];
         //阴影
         dropdownView.layer.shadowColor = [UIColor blackColor].CGColor;
         dropdownView.layer.shadowOpacity = 0.6f;
-        dropdownView.layer.shadowRadius = 5.f;
-        dropdownView.layer.shadowOffset = CGSizeMake(0.f, 2.f);
-        UIButton *myQpoint = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 0.f, 124.f, 40.f)];
+        dropdownView.layer.shadowRadius = 5.0f;
+        dropdownView.layer.shadowOffset = CGSizeMake(0.0f, 2.0f);
+        UIButton *myQpoint = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 124.0f, 40.0f)];
         [myQpoint setBackgroundImage:[UIImage imageNamed:@"button_angle.png"] forState:UIControlStateNormal];
         [myQpoint addTarget:self action:@selector(dropdownViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [myQpoint setTitle:@"我的趣点集" forState:UIControlStateNormal];
         //[myQpoint setTitleEdgeInsets:UIEdgeInsetsMake(10.f, 8.f, 10.f, 16.f)];
-        myQpoint.titleLabel.font = [UIFont systemFontOfSize:18.f];
+        myQpoint.titleLabel.font = [UIFont systemFontOfSize:18.0f];
         myQpoint.titleLabel.textColor = [UIColor whiteColor];
         myQpoint.tag = 0;
         [dropdownView addSubview:myQpoint];
-        UIButton *otherQpoint = [[UIButton alloc]initWithFrame:CGRectMake(0.f, 41.f, 124.f, 40.f)];
+        UIButton *otherQpoint = [[UIButton alloc]initWithFrame:CGRectMake(0.0f, 41.0f, 124.0f, 40.0f)];
         [otherQpoint setBackgroundImage:[UIImage imageNamed:@"button_angle.png"] forState:UIControlStateNormal];
         [otherQpoint addTarget:self action:@selector(dropdownViewBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [otherQpoint setTitle:@"其他趣点集" forState:UIControlStateNormal];
-        otherQpoint.titleLabel.font = [UIFont systemFontOfSize:18.f];
+        otherQpoint.titleLabel.font = [UIFont systemFontOfSize:18.0f];
         otherQpoint.titleLabel.textColor = [UIColor whiteColor];
         otherQpoint.tag = 1;
         [dropdownView addSubview:otherQpoint];
@@ -174,7 +181,7 @@
     [self.arrowImgView removeFromSuperview];
     UIImage *arrowImg = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:(downOrUp)?@"arrow_up":@"arrow_down" ofType:@"png"]];
     self.arrowImgView = [[UIImageView alloc]initWithImage:arrowImg];
-    [arrowImgView setFrame:CGRectMake(120.f, 16.f, 8.f, 8.f)];
+    [arrowImgView setFrame:CGRectMake(120.0f, 16.0f, 8.0f, 8.0f)];
     [self.presentViewBtn addSubview:arrowImgView];
     isPresentViewBtnPressed = isPresentViewBtnPressed?NO:YES;
 }
@@ -184,9 +191,9 @@
 {
     UIView *returnView = [[UIView alloc]initWithFrame:CGRectZero];
     //趣点文本
-    UIFont *font = [UIFont systemFontOfSize:15.f];
-    CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(150.f, 1000.f) lineBreakMode:UILineBreakModeWordWrap];
-    UILabel *qPointText = [[UILabel alloc]initWithFrame:CGRectMake(16.f, 3.f, size.width+9.f, size.height+6.f)];
+    UIFont *font = [UIFont systemFontOfSize:15.0f];
+    CGSize size = [text sizeWithFont:font constrainedToSize:CGSizeMake(150.0f, 1000.0f) lineBreakMode:UILineBreakModeWordWrap];
+    UILabel *qPointText = [[UILabel alloc]initWithFrame:CGRectMake(16.0f, 3.0f, size.width+9.0f, size.height+6.0f)];
     qPointText.backgroundColor = [UIColor clearColor];
     qPointText.font = font;
     qPointText.text = [qPointArray objectAtIndex:fromIndex];
@@ -194,25 +201,25 @@
     //时间文本
     UILabel *timeText = [[UILabel alloc]init];
     timeText.backgroundColor = [UIColor clearColor];
-    timeText.font = [UIFont systemFontOfSize:9.f];
-    timeText.textColor = [UIColor colorWithRed:196.f/255.f green:149.f/255.f blue:135.f/255.f alpha:1.f];
+    timeText.font = [UIFont systemFontOfSize:9.0f];
+    timeText.textColor = [UIColor colorWithRed:196.0f/255.0f green:149.0f/255.0f blue:135.0f/255.0f alpha:1.0f];
     timeText.text = @"1分钟前";
     CGSize timeTextSize = [timeText.text sizeWithFont:timeText.font];
     //通过fromIndex选择不同的图片
     UIImage *qPoint = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:(fromIndex%2)?@"bubbleRight":@"bubbleLeft" ofType:@"png"]];
     UIImageView *qPonitImageView = [[UIImageView alloc]initWithImage:[qPoint stretchableImageWithLeftCapWidth:10 topCapHeight:14]];
     //根据文本调整背景图
-    qPonitImageView.frame = CGRectMake(0.f, 0.f, qPointText.frame.size.width+20.f, qPointText.frame.size.height+6.f);
+    qPonitImageView.frame = CGRectMake(0.0f, 0.0f, qPointText.frame.size.width+20.0f, qPointText.frame.size.height+6.0f);
     //通过fromIndex调整位置
     if (fromIndex%2) {
-        timeText.frame = CGRectMake(qPointText.frame.size.width-18.f, 30.f, timeTextSize.width, timeTextSize.height);
+        timeText.frame = CGRectMake(qPointText.frame.size.width-18.0f, 30.0f, timeTextSize.width, timeTextSize.height);
         [returnView addSubview:timeText];
-        returnView.frame = CGRectMake(170.f, 0.f, qPointText.frame.size.width+14.f, qPointText.frame.size.height+10.f);
+        returnView.frame = CGRectMake(170.0f, 0.0f, qPointText.frame.size.width+14.0f, qPointText.frame.size.height+10.0f);
     }
     else {
-        timeText.frame = CGRectMake(10.f, 30.f, timeTextSize.width, timeTextSize.height);
+        timeText.frame = CGRectMake(10.0f, 30.0f, timeTextSize.width, timeTextSize.height);
         [returnView addSubview:timeText];
-        returnView.frame = CGRectMake(140.f-qPointText.frame.size.width, 0.f, qPointText.frame.size.width+16.f, qPointText.frame.size.height+10.f);
+        returnView.frame = CGRectMake(140.0f-qPointText.frame.size.width, 0.0f, qPointText.frame.size.width+16.0f, qPointText.frame.size.height+10.0f);
     }
     
     [returnView addSubview:qPonitImageView];
@@ -251,7 +258,7 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0f];
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
@@ -279,7 +286,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 41.f;
+    return 41.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -305,13 +312,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UIAlertView *testAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]] delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
-//    [testAlert show];
     QuoteViewController *detailViewController = [[QuoteViewController alloc]init];
     detailViewController.title = [NSString stringWithFormat:@"%@",[qPointArray objectAtIndex:indexPath.row]];
-     // Pass the selected object to the new view controller.
     [self.navigationController pushViewController:detailViewController animated:YES];
-     
 }
 
 @end

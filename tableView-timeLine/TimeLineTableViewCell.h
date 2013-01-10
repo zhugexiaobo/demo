@@ -10,6 +10,6 @@
 
 @interface TimeLineTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) UILabel *dataLabel;
+//@property (strong, nonatomic) UIColor *tintColor;
 
 @end

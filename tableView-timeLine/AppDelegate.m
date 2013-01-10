@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "TimeLineViewController.h"
 
-//#define kSCNavBarImageTag 10
+#define kSCNavBarImageTag 10
 
 @implementation AppDelegate
 
@@ -24,22 +24,19 @@
     
     self.timeLineViewController = [[TimeLineViewController alloc]init];
     self.navigationController = [[UINavigationController alloc]initWithRootViewController:self.timeLineViewController];
-//    //自定义navigationBar
-//    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)])
-//    {
-//        //if iOS 5.0 and later
-//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
-//    }
-//    else
-//    {
-//        UIImageView *imageView = (UIImageView *)[self.navigationController.navigationBar viewWithTag:kSCNavBarImageTag];
-//        if (imageView == nil)
-//        {
-//            imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavigationBar.png"]];
-//            [imageView setTag:kSCNavBarImageTag];
-//            [self.navigationController.navigationBar insertSubview:imageView atIndex:0];
-//        }
-//    }
+    //自定义navigationBar
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+        //if iOS 5.0 and later
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    else {
+        UIImageView *imageView = (UIImageView *)[self.navigationController.navigationBar viewWithTag:kSCNavBarImageTag];
+        if (imageView == nil) {
+            imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NavigationBar.png"]];
+            [imageView setTag:kSCNavBarImageTag];
+            [self.navigationController.navigationBar insertSubview:imageView atIndex:0];
+        }
+    }
     [self.window setRootViewController:self.navigationController];
 //    [self.window setRootViewController:self.timeLineViewController];
     
